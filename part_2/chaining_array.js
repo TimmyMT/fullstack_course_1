@@ -36,7 +36,7 @@ function byAge(item) {
     return item.age > 25
 }
 
-let employers = [
+let employees = [
     {
         firstName: 'Alex',
         lastName: 'Smith',
@@ -61,13 +61,13 @@ let employers = [
 ]
 
 // 1. Узнать среднюю зарплату сотрудников
-let salaries = employers.map(mapSalaries)
+let salaries = employees.map(mapSalaries)
 let averageSalaries = averageValue(salaries)
 
 console.log('Средняя зарплата сотрудников: ', averageSalaries)
 
 // 2. Отсортировать сотрудников по зарплате
 // 3. Получить список сотрудников с зарплатой >4500 и возрастом > 25 лет
-let sortedEmployers = employers.sort(descSalary).filter(bySalary).filter(byAge)
+let sortedEmployees = employees.sort(descSalary).filter(bySalary).filter(byAge)
 
-console.log(sortedEmployers)
+console.log(sortedEmployees)
