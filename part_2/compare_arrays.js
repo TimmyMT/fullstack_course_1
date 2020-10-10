@@ -34,5 +34,7 @@ function compareArrays(first, second) {
     }
 }
 
-compareArrays(['str12', 'str11'], ['str11', 'str12'])
-compareArrays(['str123', 'str11'], ['str11', 'str12'])
+compareArrays(['str2', 'str1'], ['str1', 'str2'])
+// arrays match
+compareArrays(['str12', 'str1'], ['str1', 'str2'])
+// arrays not match

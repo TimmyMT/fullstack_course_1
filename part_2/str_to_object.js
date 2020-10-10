@@ -20,3 +20,4 @@ function strToObj(inputString) {
 };
 
 console.log(strToObj('test'))
+// { word: 'test', length: 4, isCapitalized: false }
