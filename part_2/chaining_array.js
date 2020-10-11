@@ -19,7 +19,7 @@ function averageValue(values) {
 }
 
 function descSalary(a, b) {
-    a.salary < b.salary ? 1 : a.salary > b.salary ? -1 : 0
+    return a.salary - b.salary
 }
 
 function bySalary(item) {
