@@ -26,8 +26,8 @@ function bySalary(value) {
     return function(item) { return item.salary > value }
 }
 
-function byAge(item) {
-    return item.age > 25
+function byAge(value) {
+    return function(item) { return item.age > value }
 }
 
 let employees = [
@@ -62,6 +62,6 @@ console.log('Средняя зарплата сотрудников: ', averageS
 
 // 2. Отсортировать сотрудников по зарплате
 // 3. Получить список сотрудников с зарплатой >4500 и возрастом > 25 лет
-let sortedEmployees = employees.sort(descSalary).filter(bySalary(5000)).filter(byAge)
+let sortedEmployees = employees.sort(descSalary).filter(bySalary(5000)).filter(byAge(25))
 
 console.log(sortedEmployees)
