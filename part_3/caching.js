@@ -20,11 +20,11 @@ const cache = function() {
             lastArgument_a = a;
             lastArgument_b = b;
             lastCalculated = params.value;
-        }
+        };
         return params;
-    }
+    };
     return value;
-}
+};
 
 const calculate = cache();
 
