@@ -6,24 +6,24 @@ const cache = function() {
     var lastArgument_b = null;
     var lastCalculated = null;
 
-    value = (a, b) => {
+    const value = (a, b) => {
         if (a === lastArgument_a && b === lastArgument_b) {
             params = {
                 value: lastCalculated,
                 fromCache: true
-            }
+            };
         } else {
             params = {
                 value: Math.pow(a, b),
                 fromCache: false
-            }
+            };
             lastArgument_a = a;
             lastArgument_b = b;
-            lastCalculated = params.value
+            lastCalculated = params.value;
         }
-        return params
+        return params;
     }
-    return value
+    return value;
 }
 
 const calculate = cache();
