@@ -8,12 +8,12 @@ const cache = function() {
 
     const value = (a, b) => {
         if (a === lastArgument_a && b === lastArgument_b) {
-            params = {
+            var params = {
                 value: lastCalculated,
                 fromCache: true
             };
         } else {
-            params = {
+            var params = {
                 value: Math.pow(a, b),
                 fromCache: false
             };
