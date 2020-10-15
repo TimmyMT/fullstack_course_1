@@ -16,8 +16,8 @@ const square = function() {
 rectangle.prototype = new square()
 square.prototype = new rectangle()
 
-var newRectangle = new rectangle()
-var newSquare = new square()
+const newRectangle = new rectangle()
+const newSquare = new square()
 
 console.log(newRectangle.calculateArea(10, 5))
 console.log(newSquare.calculatePerimeter(3, 7))

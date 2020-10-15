@@ -1,6 +1,6 @@
 // Организовать такую цепочку прототипов, в которой свойства и методы оптимально распределены по объектам
 
-const human = function(person) {
+const Human = function(person) {
     this.getPersonData = function() {
         var personData = {
             name: person.name,
@@ -8,7 +8,7 @@ const human = function(person) {
             location: person.location,
             phoneNumber: person.phoneNumber
         }
-        return console.log(personData)
+        return personData
     }
     this.eat = function() {
         return console.log(person.name, person.eat())
@@ -21,7 +21,7 @@ const human = function(person) {
     }
 }
 
-const employee = function(person) {
+const Employee = function(person) {
     this.getEmployeeData = function() {
         var employeeData = {
             position: person.position,
@@ -31,11 +31,11 @@ const employee = function(person) {
             salaryCurrency: person.salaryCurrency,
             department: person.department
         }
-        return console.log(employeeData)
+        return employeeData
     }
 }
 
-const currentEmployee = function(person) {
+const CurrentEmployee = function(person) {
     this.writeReport = function() {
         return console.log(person.name, person.writeReport())
     },
@@ -47,7 +47,7 @@ const currentEmployee = function(person) {
     }
 }
 
-const retiredEmployee = function(person) {
+const RetiredEmployee = function(person) {
     this.retire = function() {
         return console.log(person.name, person.retire())
     }
@@ -73,15 +73,15 @@ const john = {
     startVacation: function () { return 'start vacation' }
 }
 
-employee.prototype = new human(john)
-currentEmployee.prototype = new employee(john)
-retiredEmployee.prototype = new employee(john)
+Employee.prototype = new Human(john)
+CurrentEmployee.prototype = new Employee(john)
+RetiredEmployee.prototype = new Employee(john)
 
-var myEmployee = new currentEmployee(john)
-myEmployee.getPersonData()
+var myEmployee = new CurrentEmployee(john)
+console.log(myEmployee.getPersonData())
 myEmployee.eat()
 myEmployee.organizeMeeting()
-var nowRetiredEmployee = new retiredEmployee(john)
-nowRetiredEmployee.getEmployeeData()
+var nowRetiredEmployee = new RetiredEmployee(john)
+console.log(nowRetiredEmployee.getEmployeeData())
 nowRetiredEmployee.callFriend()
 nowRetiredEmployee.retire()
