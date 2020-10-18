@@ -14,94 +14,106 @@ function generateId(ships) {
     return generatedId
 }
 
-const Shipyard = function(ships) {
-    if (typeof ships != 'object') {
-        return 'invalid input'
-    } else {
-        Object.defineProperty(this, this.buildType, { writable: false })
-
-        this.getShips = function() {
-            return console.log(ships)
+class Shipyard {
+    constructor() {
+        if (typeof ships != 'object') {
+            return 'invalid input'
+        } else {
+            this.getShips = function() {
+                return console.log(ships)
+            }
+            this.paint = function(id, color) {
+                if (ships[id] != undefined) {
+                    ships[id].color = color
+                    return ships[id]
+                } else {
+                    return 'ship is not exist'
+                }
+            }
+            this.repairShip = function(id) {
+                if (ships[id].type === this.buildType && ships[id] != undefined) {
+                    ships[id].lastRepair = new Date().toLocaleString()
+                    return ships[id]
+                }
+            }
+            this.replaceShip = function(id) {
+                if (ships[id].type === this.buildType && ships[id] != undefined) {
+                    let newId = generateId(ships)
+                    ships[newId] = ships[id]
+                    ships[newId].lastRepair = null
+                    delete ships[id]
+                    return ships[newId]
+                }
+            }
         }
-        this.paint = function(id, color) {
-            if (ships[id] != undefined) {
-                ships[id].color = color
-                return ships[id]
+    }
+}
+
+class MotorShip {
+    constructor(powerEngine, body) {
+        this.powerEngine = powerEngine
+        this.body = body
+        this.type = 'motor ship'
+        this.color = 'grey'
+        this.lastRepair = null
+    }
+}
+
+class SailShip {
+    constructor(postsCount, areaSails) {
+        this.postsCount = postsCount
+        this.areaSails = areaSails
+        this.type = 'sail ship'
+        this.color = 'brown'
+        this.lastRepair = null
+    }
+}
+
+class MotorsShipyard extends Shipyard {
+    constructor(ships) {
+        super();
+        this.buildType = 'motor ship'
+
+        this.buildMotorShip = function(powerEngine, body) {
+            if (typeof powerEngine != 'number' || typeof body != 'string') {
+                return 'invalid input'
             } else {
-                return 'ship is not exist'
-            }
-        }
-        this.repairShip = function(id) {
-            if (ships[id].type === this.buildType && ships[id] != undefined) {
-                ships[id].lastRepair = new Date().toLocaleString()
+                let id = generateId(ships)
+                ships[id] = new MotorShip(powerEngine, body)
                 return ships[id]
             }
-        }
-        this.replaceShip = function(id) {
-            if (ships[id].type === this.buildType && ships[id] != undefined) {
-                newId = generateId(ships)
-                ships[newId] = ships[id]
-                ships[newId].lastRepair = null
-                delete ships[id]
-                return ships[newId]
-            }
-        }
+        }    
     }
 }
 
-const MotorsShipyard = function(ships) {
-    this.buildType = 'motor ship'
-    
-    this.buildMotorShip = function(powerEngine, body) {
-        if (typeof powerEngine != 'number' || typeof body != 'string') {
-            return 'invalid input'
-        } else {
-            id = generateId(ships)
-            ships[id] = {
-                powerEngine: powerEngine,
-                body: body,
-                type: this.buildType,
-                color: 'grey',
-                lastRepair: null
-            }
-        }
-        return ships[id]
-    }
-}
+class SailsShipyard extends Shipyard {
+    constructor(ships) {
+        super();
+        this.buildType = 'sail ship'
 
-const SailsShipyard = function(ships) {
-    this.buildType = 'sail ship'
-    this.buildSailShip = function(postsCount, areaSails) {
-        if (typeof postsCount != 'number' || typeof areaSails != 'number') {
-            return 'invalid input'
-        } else {
-            id = generateId(ships)
-            ships[id] = {
-                postsCount: postsCount,
-                areaSails: areaSails,
-                type: this.buildType,
-                color: 'brown',
-                lastRepair: null
+        this.buildSailShip = function(postsCount, areaSails) {
+            if (typeof postsCount != 'number' || typeof areaSails != 'number') {
+                return 'invalid input'
+            } else {
+                let id = generateId(ships)
+                ships[id] = new SailShip(postsCount, areaSails)
+                return ships[id]
             }
-            return ships[id]
         }
     }
 }
 
 let ships = {
-    '12345': { postsCount: 15, areaSails: 150, type: 'sail ship', color: 'brown', lastRepair: null } ,
-    '54321': { powerEngine: 500, body: 'metal', type: 'motor ship', color: 'grey', lastRepair: null }
+    '12345': new SailShip(15, 150),
+    '54321': new MotorShip(500, 'metal')
 }
 
-MotorsShipyard.prototype = new Shipyard(ships)
-SailsShipyard.prototype = new Shipyard(ships)
 let newMotors = new MotorsShipyard(ships)
 let newSails = new SailsShipyard(ships)
 
 newSails.paint('12345', 'black')
 newMotors.buildMotorShip(500, 'metal')
 newSails.buildSailShip(15, 150)
-console.log(newSails.repairShip('12345'))
-newSails.repairShip('54321')
-console.log(newMotors.replaceShip('54321'))
+newSails.repairShip('12345')
+newMotors.replaceShip('54321')
 newSails.getShips()
